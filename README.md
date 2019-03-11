@@ -50,7 +50,11 @@ Acesse o sequinte endereço:
 
  > http:// 192.168.77.100:8200
  
- ![vault](https://github.com/clodonil/manager_environment/blob/master/img/vault.png)
+Acesso ao vault:
+
+Token: redepp
+
+![vault](https://github.com/clodonil/manager_environment/blob/master/img/vault.png)
 
 Para a experimentação das ferramentas, vamos precisar criar a seguinte estrutura no vault.
 
