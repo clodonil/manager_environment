@@ -1,0 +1,16 @@
+[Unit]
+Description=HashiCorp Vault Server
+
+[Service]
+Restart=on-failure
+RestartSec=20
+TimeoutStartSec=2
+
+EnvironmentFile=/etc/default/vault.cnf
+ExecStart=/usr/bin/vault server -dev $TOKEN $ADDRESS $WEB
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
+

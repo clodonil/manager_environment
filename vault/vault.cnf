@@ -1,0 +1,4 @@
+TOKEN="-dev-root-token-id='redepp'"
+ADDRESS="-dev-listen-address=0.0.0.0:8200"
+WEB="ui=true"
+
