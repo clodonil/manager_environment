@@ -1,3 +1,5 @@
+<link href="/your-path-to-fontawesome/css/fontawesome.css" rel="stylesheet">
+
 # Gestão de configuração de ambiente
 
 
@@ -34,7 +36,9 @@ Vamos acessar o vault e criar a estrutura necessária.
 
 Acesse o sequinte endereço:
 
- >> http:// 192.168.77.100:8200
+ > http:// 192.168.77.100:8200
+ 
+ 
 ![vault](https://github.com/clodonil/manager_environment/blob/master/img/vault.png)
 
 Para a experimentação das ferramentas, vamos precisar criar a seguinte estrutura no vault.
