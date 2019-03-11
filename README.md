@@ -1,14 +1,30 @@
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 # Gestão de configuração de ambiente
+
+Nesse Post vamos avaliar algumas soluções de gestão de configuração como parte de uma solução de deploy.
+
+Portanto uma mesma aplicação, deve evoluir em ambientes como `development`, `homolog` e `production` e suas configurações são aplicadas conforme o ambiente(`Environment`).
+
+Para realizar essa tarefa, vamos escrever uma aplicação (hello Word) simples em Flask (Python) que mostra na tela as variáveis que estão sendo utilizada.
+
+Vamos utilizar o [vault](https://www.vaultproject.io/) para armazenar os segredos/variáveis de ambiente e o [Bolt](https://puppet.com/docs/bolt/latest/bolt_installing.html) para aplicar as configurações utilizando alguma solução de gestão de configuração.  
+
+A topologia abaixo demostra a forma que será utilizado.
 
 ![topologia](https://github.com/clodonil/manager_environment/blob/master/img/topologia.png)
 
-Para avaliação das ferramentas de gestão de configuração abaixo, vamos precisar de uma infraestrutura com o vault e o Bolt.
+1. Bolt: Instala o app e aciona o software de gestão de configuração;
+2. Node: Através do bolt, o node utiliza o software de gestão de configuração e consulta o vault.
+3. Vault: Valida o token da consulta e devolve as configurações;
+4. Node: Recebe as configurações do vault e realiza ajusta a configuração da aplicação
+5. Node: Através do bolt, aplicação é inicializada. 
 
-| Software | Linux  | Windows | Vault |
-|----------|--------------------------------|---------|-------|
-|confd| <i class="fa fa-star fa-check">| <i class="fa fa-star fa-check">| <i class="fa fa-star fa-check"> ||
-| 
+As ferramentas de configuração que foram avaliadas são essas. Click nelas para ter mais detalhe da experimentação.
+
+| Software | Linux  | Windows | Vault | 
+|----------|--------|---------|-------|
+|[confd](confd/README.md)     |        |         |       | 
+
+Para avaliação das ferramentas de gestão de configuração, foi necessário instalar o vault e o bolt.
 
 Disponibilizei no repositório do git um `Vagrantfile` com toda a estrutura que precisamos e vamos utiliza-ló para provisionamento da infra.
 
