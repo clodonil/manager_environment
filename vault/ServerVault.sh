@@ -13,3 +13,8 @@ systemctl restart vault.service
 
 export VAULT_ADDR='http://192.168.77.100:8200'
 
+sleep 10s
+
+echo -n '{"url":"db1","user":"root","pass":"xxx"}' | vault kv put /secret/app/dev -
+echo -n '{"url":"db2","user":"u1"  ,"pass":"zzz"}' | vault kv put /secret/app/hom -
+echo -n '{"url":"db3","user":"p1"  ,"pass":"yyy"}' | vault kv put /secret/app/prod -
