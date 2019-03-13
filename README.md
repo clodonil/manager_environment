@@ -23,6 +23,10 @@ As ferramentas de configuração que foram avaliadas são essas. Click nelas par
 | Software | Linux  | Windows | Vault | 
 |----------|--------|---------|-------|
 |[confd](confd/README.md)     |        |         |       | 
+|[Consul-Template](consultemplate/README.md)     |        |         |       | 
+|[EnvConsul](envconsul/README.md)     |        |         |       | 
+|[Spring Vault](springvault/README.md)     |        |         |       | 
+|[Spring Cloud Config Server](springconfig/README.md)     |        |         |       | 
 
 Para avaliação das ferramentas de gestão de configuração, foi necessário instalar o vault e o bolt.
 
