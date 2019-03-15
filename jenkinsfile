@@ -1,0 +1,43 @@
+pipeline {
+       agent any
+        
+       environment{
+            retorno = sh ( returnStdout: true, script:"/opt/puppetlabs/bin/puppet-task --token-file /tmp/token --cacert /tmp/ca_crt.pem --service-url https://fa163edb0278l01.ctsp.des.cloud.ihf:8143  run deploy_app_template::emitir_token app=${app_pkg_name} tier=${tier} node=${node}  --nodes fa163edb0278l01.ctsp.des.cloud.ihf").split()
+            vault_token="${retorno[22]}"
+       }
+        
+       stages {
+           stage('Create Token'){
+               steps{
+                   echo  "${retorno}"
+                    echo "${env.vault_token}"
+               }
+            }
+           stage('Repo Artifactory') {
+               steps{
+                   sh "/opt/puppetlabs/bin/puppet-task --token-file /tmp/token --cacert /tmp/ca_crt.pem --service-url https://fa163edb0278l01.ctsp.des.cloud.ihf:8143  run deploy_app_template::confd tier=${tier}  token=${env.vault_token} --nodes ${node}"
+               }
+            }
+           stage('App Package'){
+               steps{
+                   sh " /opt/puppetlabs/bin/puppet-task --token-file /tmp/token  --cacert /tmp/ca_crt.pem  --service-url https://fa163edb0278l01.ctsp.des.cloud.ihf:8143  run package action=upgrade name=${app_pkg_name} version=${app_pkg_version} --nodes ${node}"
+               }
+            }
+           stage('Properties'){
+               steps{
+                   sh "/opt/puppetlabs/bin/puppet-task --token-file /tmp/token --cacert /tmp/ca_crt.pem --service-url https://fa163edb0278l01.ctsp.des.cloud.ihf:8143  run deploy_app_template::confd tier=${tier}  token=${env.vault_token} --nodes ${node}"
+               }
+           }
+ 
+          stage('Aplication Restart'){
+              steps{
+                  sh "/opt/puppetlabs/bin/puppet-task --token-file /tmp/token --cacert /tmp/ca_crt.pem --service-url https://fa163edb0278l01.ctsp.des.cloud.ihf:8143  run service::linux action=restart name=httpd  --nodes ${node}"
+              }
+           }
+          stage('Revoke Token'){
+              steps{
+              sh "/opt/puppetlabs/bin/puppet-task --token-file /tmp/token --cacert /tmp/ca_crt.pem --service-url https://fa163edb0278l01.ctsp.des.cloud.ihf:8143  run deploy_app_template::revogar_token token=${env.vault_token}  --nodes ${node}"
+              }
+          }
+      }
+}
