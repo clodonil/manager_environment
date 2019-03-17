@@ -1,11 +1,12 @@
 #!/bin/bash
- 
+
+TOKEN_ROOT=$PT_token
+VAULT=$PT_vault 
 app=$PT_app
 tier=$PT_tier
 node=$PT_node
  
-TOKEN_ROOT='cca15941-7cc6-a8da-b52a-f6e28d51762f'
-export VAULT_ADDR='http://fa163eefb108l01.ctsp.des.cloud.ihf:8200'
+export VAULT_ADDR="http://$VAULT:8200"
 policy='{"path": { "$app/*": {"capabilities" : [ "list", "read" ] } } }'
  
 #login

@@ -1,9 +1,0 @@
-[template]
-prefix="/app/env"
-src = "config.tmpl"
-dest = "/opt/app/config.py"
-keys = [
-    "url",
-    "user",
-    "pass",
-]

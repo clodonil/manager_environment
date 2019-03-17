@@ -17,13 +17,29 @@ Vagrant.configure("2") do |config|
    end
 
 
-  # bolt
-  config.vm.define "bolt" do |bolt|
-      bolt.vm.hostname = "bolt.vm"
-      bolt.vm.network :private_network, :ip => "192.168.77.200"
+  # Jenkins e bolt
+  config.vm.define "jenkins" do |jenkins|
+      jenkins.vm.hostname = "jenkins.vm"
+      jenkins.vm.network :private_network, :ip => "192.168.77.200"
       # Install Bolt
-      bolt.vm.provision "shell", path: "bolt/install.sh"
+      jenkins.vm.provision "shell", path: "jenkins/install.sh"
+      jenkins.vm.provision "shell", path: "bolt/install.sh"
    end
+
+  # Repo
+  config.vm.define "repo" do |repo|
+      repo.vm.hostname = "repo.vm"
+      repo.vm.network :private_network, :ip => "192.168.77.210"
+      # Install Artifactory
+      repo.vm.provision "shell", path: "nexus3/install.sh"
+
+      repo.vm.provider :libvirt do |setting|
+           setting.memory = 1024
+           setting.cpus = 1
+      end      
+   end
+
+
 
   config.vm.define "linux" do |linux|
       linux.vm.hostname = "linux.vm"
